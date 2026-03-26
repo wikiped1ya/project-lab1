@@ -137,9 +137,14 @@ Automatic merge failed; fix conflicts and then commit the result.
 
 - При попытке слияния веток с разными изменениями в одних и тех же файлах в каждом из них остаются и те, и те изменения. Изменения из ветки lab1-1 были обозначены символами "=" и подписью, из какой они ветки. Во всех местах такого конфликта в файлах я убрала ту версию изменений, которая осталась от ветки lab1-1. 
 
+- ser17@WIN-GCHLLJVFKQQ:~/project-1$ git branch -d lab1-1
+Deleted branch lab1-1 (was 08650c9).
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git branch
+* master
 
+- Ветка lab1-1 была удалена с помощью команды git branch -d.
 
-
+##Задание 7
 
 
 
