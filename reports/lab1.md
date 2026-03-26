@@ -176,6 +176,26 @@ remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
 To github.com:wikiped1ya/project-lab1.git  
    c39e923..f524282  master -> master  
 
+## Задание 8
+- ser17@WIN-GCHLLJVFKQQ:~/project-test$ git clone git@github.com:wikiped1ya/project-lab1.git  
+Cloning into 'project-lab1'...  
+remote: Enumerating objects: 67, done.  
+remote: Counting objects: 100% (67/67), done.  
+remote: Compressing objects: 100% (33/33), done.  
+remote: Total 67 (delta 19), reused 67 (delta 19), pack-reused 0 (from 0)  
+Receiving objects: 100% (67/67), 10.00 KiB | 1.67 MiB/s, done.  
+Resolving deltas: 100% (19/19), done.  
+
+- При помощи этой команды репозиторий скопировался в новую директорию. Содержимое файлов полностью совпадает, это последнее изменение и последний коммит.
+
+
+
+
+
+
+
+
+
 
 
 
