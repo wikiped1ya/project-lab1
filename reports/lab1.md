@@ -106,7 +106,7 @@ Changes to be committed:
 
 ## Задание 5
 - ser17@WIN-GCHLLJVFKQQ:~/project-1$ git branch  
-* master
+  master
 
 - ser17@WIN-GCHLLJVFKQQ:~/project-1$ git checkout -b lab1-1  
 Switched to a new branch 'lab1-1'
@@ -115,7 +115,7 @@ Switched to a new branch 'lab1-1'
 
 - ser17@WIN-GCHLLJVFKQQ:~/project-1$ git branch  
   lab1-1  
-* master
+  master
 
 - При переключении обратно на ветку master изменения в файле reports/lab1.md не отображаются. 
 
@@ -140,7 +140,7 @@ Automatic merge failed; fix conflicts and then commit the result.
 - ser17@WIN-GCHLLJVFKQQ:/project-1$ git branch -d lab1-1  
 Deleted branch lab1-1 (was 08650c9).  
 ser17@WIN-GCHLLJVFKQQ:/project-1$ git branch  
-* master
+  master
 
 - Ветка lab1-1 была удалена с помощью команды git branch -d.
 
