@@ -145,6 +145,6 @@ ser17@WIN-GCHLLJVFKQQ:~/project-1$ git branch
 - Ветка lab1-1 была удалена с помощью команды git branch -d.
 
 ##Задание 7
-
+- Я создала ключ SSH, создала приватный репозиторий project-lab1 в GitHub. 
 
 
