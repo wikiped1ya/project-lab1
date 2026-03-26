@@ -113,7 +113,11 @@ Switched to a new branch 'lab1-1'
 
 - Первая команда вывела текущую ветку - master, а вторая создала новую - lab1-1 - с помощью -b (branch) и сразу же перевелючилась на нее.
 
+- ser17@WIN-GCHLLJVFKQQ:~/project-1$ git branch
+  lab1-1
+* master
 
+- При переключении обратно на ветку master изменения в файле reports/lab1.md не отображаются. 
 
 
 
