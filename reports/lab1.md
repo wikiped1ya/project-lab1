@@ -186,22 +186,124 @@ remote: Total 67 (delta 19), reused 67 (delta 19), pack-reused 0 (from 0)
 Receiving objects: 100% (67/67), 10.00 KiB | 1.67 MiB/s, done.  
 Resolving deltas: 100% (19/19), done.  
 
-- При помощи этой команды репозиторий скопировался в новую директорию. Содержимое файлов полностью совпадает, это последнее изменение и последний коммит.
+- При помощи этой команды репозиторий скопировался в новую директорию. Содержимое файлов полностью совпадает.
 
+- ser17@WIN-GCHLLJVFKQQ:~/project-1$ git fetch  
+remote: Enumerating objects: 7, done.  
+remote: Counting objects: 100% (7/7), done.  
+remote: Compressing objects: 100% (2/2), done.  
+remote: Total 4 (delta 1), reused 4 (delta 1), pack-reused 0 (from 0)  
+Unpacking objects: 100% (4/4), 783 bytes | 391.00 KiB/s, done.  
+From github.com:wikiped1ya/project-lab1  
+   724d3dc..db8ad71  master     -> origin/master  
 
+- Вывод означает, что нужно передать 7 объектов. Из них только два были новыми. 4 объекта передано, дальше написана информация о них. 
 
+- После git pull данные из project-test перенеслись сюда. 
 
+- Сводка последних изменений:
+commit db8ad7118a1b09e6b72abab3b638bb6c9eb21eae (HEAD -> master, origin/master)
+Author: wikiped1ya <vshalnuh@gmail.com>
+Date:   Thu Mar 26 18:12:49 2026 +0300
 
+    Последний коммит. Задание 8.
 
+commit 724d3dcc77df7c503b3dbe9d8e5f77a8d41aa33a
+Author: wikiped1ya <vshalnuh@gmail.com>
+Date:   Thu Mar 26 17:56:28 2026 +0300
 
+    Правки еще. Задание 7.
 
+commit afc62d1765cd8d67279d03e4fe7036d70885e76e
+Author: wikiped1ya <vshalnuh@gmail.com>
+Date:   Thu Mar 26 17:51:53 2026 +0300
 
+    Правки. Задание 7.
 
+commit f524282b726333ddfb2644856639c3d9b25b278a
+Author: wikiped1ya <vshalnuh@gmail.com>
+Date:   Thu Mar 26 17:47:06 2026 +0300
 
+    Обновление отчета. Задание 7.
 
+commit c39e92316927337bf74160c5035e0adca6617a06
+Author: wikiped1ya <vshalnuh@gmail.com>
+Date:   Thu Mar 26 17:33:17 2026 +0300
 
+    Обновление отчета. Задание 7.
 
+commit 09d18c2f064e21e70c2d4d33cee1f684041df643
+Author: wikiped1ya <vshalnuh@gmail.com>
+Date:   Thu Mar 26 16:32:35 2026 +0300
 
+    Обновление отчета. Снова задание 6
+
+commit 14b0b76a3bfaffb16c1c9e4f313dad4f9caed1bd
+Author: wikiped1ya <vshalnuh@gmail.com>
+Date:   Thu Mar 26 16:27:08 2026 +0300
+
+    Обновление файлов. Еще одно в задании 6.
+
+commit ec57b7f9f7775564ff887fcb0cdb1f1f18c65c92
+Merge: dfd9eae 08650c9
+Author: wikiped1ya <vshalnuh@gmail.com>
+Date:   Thu Mar 26 16:22:38 2026 +0300
+
+    Обновление файлов. Последнее в задании 6.
+
+commit 08650c941cd89660caf24f0dc661ac7ac286b847
+Author: wikiped1ya <vshalnuh@gmail.com>
+Date:   Thu Mar 26 16:16:37 2026 +0300
+
+    Обновление файлов. Задание 6.
+
+commit dfd9eae6424aa18aac0059e72e80a63fe8f55374
+Author: wikiped1ya <vshalnuh@gmail.com>
+Date:   Thu Mar 26 15:46:24 2026 +0300
+
+    Обновление README.md. Задание 6.
+
+commit 1b55067c5c7f4721ecf65e879ecccf298d69274a
+Author: wikiped1ya <vshalnuh@gmail.com>
+Date:   Thu Mar 26 15:45:48 2026 +0300
+
+    Обновление README.md. Задание 6.
+
+commit bbb540765d3e03e1c9686b853d910605bee97ba6
+Author: wikiped1ya <vshalnuh@gmail.com>
+Date:   Thu Mar 26 15:37:13 2026 +0300
+
+    Обновление отчета. Снова задание 5.
+
+commit 49feb10e0717d148f9d19907a4673e9b4c390c37
+Author: wikiped1ya <vshalnuh@gmail.com>
+Date:   Thu Mar 26 15:29:05 2026 +0300
+
+    Обновление отчета. Задании 5.
+
+commit 2cbc1d552f95b89503830a9a2b45d2aecb62640d
+Author: wikiped1ya <vshalnuh@gmail.com>
+Date:   Thu Mar 26 15:10:31 2026 +0300
+
+    Обновление отчета. Все еще задание 4.
+
+commit 05fdd6b7f74df6367aa83aab72832379edbdebac
+Author: wikiped1ya <vshalnuh@gmail.com>
+Date:   Thu Mar 26 14:36:54 2026 +0300
+
+    Обновлен отчет. Задание 4.
+
+commit 6958af42b214d66cf7636c0e5d0d7e857713e914
+Author: wikiped1ya <vshalnuh@gmail.com>
+Date:   Wed Mar 25 22:14:41 2026 +0300
+
+    Тот же коммит коммит
+
+commit c35051b03eb87850fb68f7c8dd5632299b54c65a
+Author: wikiped1ya <vshalnuh@gmail.com>
+Date:   Wed Mar 25 21:55:30 2026 +0300
+
+    Начальный коммит
 
 
 
