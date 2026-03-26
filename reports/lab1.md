@@ -126,10 +126,17 @@ Already on 'lab1-1'
 - Гит перенес незакоммиченные изменения. Это произошло, потому что в ветке lab1-1 не было изменений в файле README.md, которые конфликтовали бы с этими. В противном случае гит запретил бы переключение между ветками. 
 
 ##Задание 6
+<<<<<<< HEAD
 - После слияния веток командой git merge lab1-1 все изменения в reports/lab1.md стали отображаться и в ветке master.
 
-- 
+- ser17@WIN-GCHLLJVFKQQ:~/project-1$ git merge lab1-1
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
+Auto-merging reports/lab1.md
+CONFLICT (content): Merge conflict in reports/lab1.md
+Automatic merge failed; fix conflicts and then commit the result.
 
+- При попытке слияния веток с разными изменениями в одних и тех же файлах в каждом из них остаются и те, и те изменения. Изменения из ветки lab1-1 были обозначены символами "=" и подписью, из какой они ветки. Во всех местах такого конфликта в файлах я убрала ту версию изменений, которая осталась от ветки lab1-1. 
 
 
 
