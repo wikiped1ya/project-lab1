@@ -88,6 +88,27 @@ remote:
 To github.com:wikiped1ya/project-lab1.git  
  * [new branch]      pr-test -> pr-test  
 
+## Задание 3
+- Через GitHub я сделала pull request, ветки получилось слить.  
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git pull  
+remote: Enumerating objects: 1, done.  
+remote: Counting objects: 100% (1/1), done.  
+remote: Total 1 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)  
+Unpacking objects: 100% (1/1), 881 bytes | 881.00 KiB/s, done.  
+From github.com:wikiped1ya/project-lab1  
+   a5b8b91..6f66b8e  master     -> origin/master  
+Updating e8ae942..6f66b8e  
+Fast-forward  
+ labs/lab2/report.md | 43 +++++++++++++++++++++++++++++++++++++++++++  
+ 1 file changed, 43 insertions(+)  
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git branch  
+* master  
+  pr-test  
+
+
+
+
+
 
 
 
