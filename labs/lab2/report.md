@@ -1,4 +1,6 @@
-*Я удаляла символы "~" в фрагментах из командной строки, потому что иначе фрагменты текста зачеркивались там, где это не нужно.*
+# Лабораторная работа 2.
+
+*Я удаляла символы "~" в фрагментах из командной строки, потому что иначе часть текста зачеркивались там, где это не нужно.*
 
 ## Задание 1
 - ser17@WIN-GCHLLJVFKQQ:~$ cp -r ~/lab1/* ~/project-1/labs/lab2/lab1-sd/  
@@ -36,9 +38,12 @@ Changes to be committed:
         new file:   labs/lab2/report.md  
 ser17@WIN-GCHLLJVFKQQ:/project-1$ git commit -m "Коммит для лаб2. Задание 1."  
 
-Я добавила файл .gitignore и сделала коммит. Во всех файлов, кроме build и a.out, сохранились изменения.
+Я добавила файл .gitignore и сделала коммит. Во всех файлах, кроме build и a.out, сохранились изменения.
 
+## Задание 2
+- Защита веток - это определенные настройки репозитория, которые позволяют избежать случайного удаления или изменения веток. Читала я [тут](https://docs.github.com/ru/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule) и [тут](https://techhaps.com/ru/p/how-to-set-up-and-maintain-github-branch-protection-rules-8204740).
 
+- Для защиты ветки на GitHub я зашла в настройки репозитория, в раздел Branches и добавила настройку: для ветки master поставила галочку на "Require a pull request before merging". Но проблема в том, что гит хаб не позволяет это сделать в приватном репозитории. Я временно сделала репозиторий публичным в настройках. Теперь проблем нет и настройка применилась.
 
 
 
