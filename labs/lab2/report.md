@@ -69,8 +69,24 @@ error: failed to push some refs to 'github.com:wikiped1ya/project-lab1.git'
 
 *Запись для тестовой ветки*
 
-
-
+- Изменения сохранились и получилось сделать push из ветки pr-test.  
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git commit -m "Изменения в тестовой ветке"  
+[pr-test 5a193b9] Изменения в тестовой ветке  
+ 1 file changed, 27 insertions(+)  
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git push origin pr-test  
+Enumerating objects: 14, done.  
+Counting objects: 100% (14/14), done.  
+Delta compression using up to 18 threads  
+Compressing objects: 100% (8/8), done.  
+Writing objects: 100% (10/10), 1.68 KiB | 1.68 MiB/s, done.  
+Total 10 (delta 2), reused 0 (delta 0), pack-reused 0  
+remote: Resolving deltas: 100% (2/2), completed with 1 local object.  
+remote:  
+remote: Create a pull request for 'pr-test' on GitHub by visiting:  
+remote:      https://github.com/wikiped1ya/project-lab1/pull/new/pr-test  
+remote:  
+To github.com:wikiped1ya/project-lab1.git  
+ * [new branch]      pr-test -> pr-test  
 
 
 
