@@ -45,6 +45,49 @@ ser17@WIN-GCHLLJVFKQQ:/project-1$ git commit -m "Коммит для лаб2. З
 
 - Для защиты ветки на GitHub я зашла в настройки репозитория, в раздел Branches и добавила настройку: для ветки master поставила галочку на "Require a pull request before merging". Но проблема в том, что гит хаб не позволяет это сделать в приватном репозитории. Я временно сделала репозиторий публичным в настройках. Теперь проблем нет и настройка применилась.
 
+Изменения отправились, тк я забыла отключить обход правил для администратора. Так что я добавила еще галочку на "Do not allow bypassing the above settings". 
+
+- ser17@WIN-GCHLLJVFKQQ:~/project-1$ git commit -m "Еще одна проверка работы защиты веток"  
+[master e8ae942] Еще одна проверка работы защиты веток  
+ 1 file changed, 1 insertion(+), 1 deletion(-)  
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git push  
+Enumerating objects: 9, done.  
+Counting objects: 100% (9/9), done.  
+Delta compression using up to 18 threads  
+Compressing objects: 100% (4/4), done.  
+Writing objects: 100% (5/5), 696 bytes | 696.00 KiB/s, done.  
+Total 5 (delta 1), reused 0 (delta 0), pack-reused 0  
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.  
+remote: error: GH006: Protected branch update failed for refs/heads/master.  
+remote:  
+remote: - Changes must be made through a pull request.  
+To github.com:wikiped1ya/project-lab1.git  
+ ! [remote rejected] master -> master (protected branch hook declined)  
+error: failed to push some refs to 'github.com:wikiped1ya/project-lab1.git'  
+
+Теперь защита веток работает правильно и мне не удалось сделать git push. 
+
+*Запись для тестовой ветки*
+
+- Изменения сохранились и получилось сделать push из ветки pr-test.  
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git commit -m "Изменения в тестовой ветке"  
+[pr-test 5a193b9] Изменения в тестовой ветке  
+ 1 file changed, 27 insertions(+)  
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git push origin pr-test  
+Enumerating objects: 14, done.  
+Counting objects: 100% (14/14), done.  
+Delta compression using up to 18 threads  
+Compressing objects: 100% (8/8), done.  
+Writing objects: 100% (10/10), 1.68 KiB | 1.68 MiB/s, done.  
+Total 10 (delta 2), reused 0 (delta 0), pack-reused 0  
+remote: Resolving deltas: 100% (2/2), completed with 1 local object.  
+remote:  
+remote: Create a pull request for 'pr-test' on GitHub by visiting:  
+remote:      https://github.com/wikiped1ya/project-lab1/pull/new/pr-test  
+remote:  
+To github.com:wikiped1ya/project-lab1.git  
+ * [new branch]      pr-test -> pr-test  
+
 
 
 
