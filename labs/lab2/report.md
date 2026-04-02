@@ -47,4 +47,31 @@ ser17@WIN-GCHLLJVFKQQ:/project-1$ git commit -m "Коммит для лаб2. З
 
 Изменения отправились, тк я забыла отключить обход правил для администратора. Так что я добавила еще галочку на "Do not allow bypassing the above settings". 
 
+- ser17@WIN-GCHLLJVFKQQ:~/project-1$ git commit -m "Еще одна проверка работы защиты веток"  
+[master e8ae942] Еще одна проверка работы защиты веток  
+ 1 file changed, 1 insertion(+), 1 deletion(-)  
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git push  
+Enumerating objects: 9, done.  
+Counting objects: 100% (9/9), done.  
+Delta compression using up to 18 threads  
+Compressing objects: 100% (4/4), done.  
+Writing objects: 100% (5/5), 696 bytes | 696.00 KiB/s, done.  
+Total 5 (delta 1), reused 0 (delta 0), pack-reused 0  
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.  
+remote: error: GH006: Protected branch update failed for refs/heads/master.  
+remote:  
+remote: - Changes must be made through a pull request.  
+To github.com:wikiped1ya/project-lab1.git  
+ ! [remote rejected] master -> master (protected branch hook declined)  
+error: failed to push some refs to 'github.com:wikiped1ya/project-lab1.git'  
+
+Теперь защита веток работает правильно и мне не удалось сделать git push. 
+
+*Запись для тестовой ветки*
+
+
+
+
+
+
 
