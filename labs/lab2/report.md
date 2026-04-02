@@ -90,7 +90,7 @@ To github.com:wikiped1ya/project-lab1.git
 
 ## Задание 3
 - Через GitHub я сделала pull request, ветки получилось слить.  
-ser17@WIN-GCHLLJVFKQQ:~/project-1$ git pull  
+ser17@WIN-GCHLLJVFKQQ:/project-1$ git pull  
 remote: Enumerating objects: 1, done.  
 remote: Counting objects: 100% (1/1), done.  
 remote: Total 1 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)  
@@ -101,7 +101,7 @@ Updating e8ae942..6f66b8e
 Fast-forward  
  labs/lab2/report.md | 43 +++++++++++++++++++++++++++++++++++++++++++  
  1 file changed, 43 insertions(+)  
-ser17@WIN-GCHLLJVFKQQ:~/project-1$ git branch  
+ser17@WIN-GCHLLJVFKQQ:/project-1$ git branch  
 * master  
   pr-test  
 
