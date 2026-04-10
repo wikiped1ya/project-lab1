@@ -47,10 +47,10 @@ ser17@WIN-GCHLLJVFKQQ:/project-1$ git commit -m "Коммит для лаб2. З
 
 Изменения отправились, тк я забыла отключить обход правил для администратора. Так что я добавила еще галочку на "Do not allow bypassing the above settings". 
 
-- ser17@WIN-GCHLLJVFKQQ:~/project-1$ git commit -m "Еще одна проверка работы защиты веток"  
+- ser17@WIN-GCHLLJVFKQQ:/project-1$ git commit -m "Еще одна проверка работы защиты веток"  
 [master e8ae942] Еще одна проверка работы защиты веток  
  1 file changed, 1 insertion(+), 1 deletion(-)  
-ser17@WIN-GCHLLJVFKQQ:~/project-1$ git push  
+ser17@WIN-GCHLLJVFKQQ:/project-1$ git push  
 Enumerating objects: 9, done.  
 Counting objects: 100% (9/9), done.  
 Delta compression using up to 18 threads  
@@ -70,10 +70,10 @@ error: failed to push some refs to 'github.com:wikiped1ya/project-lab1.git'
 *Запись для тестовой ветки*
 
 - Изменения сохранились и получилось сделать push из ветки pr-test.  
-ser17@WIN-GCHLLJVFKQQ:~/project-1$ git commit -m "Изменения в тестовой ветке"  
+ser17@WIN-GCHLLJVFKQQ:/project-1$ git commit -m "Изменения в тестовой ветке"  
 [pr-test 5a193b9] Изменения в тестовой ветке  
  1 file changed, 27 insertions(+)  
-ser17@WIN-GCHLLJVFKQQ:~/project-1$ git push origin pr-test  
+ser17@WIN-GCHLLJVFKQQ:/project-1$ git push origin pr-test  
 Enumerating objects: 14, done.  
 Counting objects: 100% (14/14), done.  
 Delta compression using up to 18 threads  
@@ -87,6 +87,27 @@ remote:      https://github.com/wikiped1ya/project-lab1/pull/new/pr-test
 remote:  
 To github.com:wikiped1ya/project-lab1.git  
  * [new branch]      pr-test -> pr-test  
+
+## Задание 3
+- Через GitHub я сделала pull request, ветки получилось слить.  
+ser17@WIN-GCHLLJVFKQQ:/project-1$ git pull  
+remote: Enumerating objects: 1, done.  
+remote: Counting objects: 100% (1/1), done.  
+remote: Total 1 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)  
+Unpacking objects: 100% (1/1), 881 bytes | 881.00 KiB/s, done.  
+From github.com:wikiped1ya/project-lab1  
+   a5b8b91..6f66b8e  master     -> origin/master  
+Updating e8ae942..6f66b8e  
+Fast-forward  
+ labs/lab2/report.md | 43 +++++++++++++++++++++++++++++++++++++++++++  
+ 1 file changed, 43 insertions(+)  
+ser17@WIN-GCHLLJVFKQQ:/project-1$ git branch  
+* master  
+  pr-test  
+
+
+
+
 
 
 
