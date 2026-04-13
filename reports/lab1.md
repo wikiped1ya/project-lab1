@@ -1,12 +1,12 @@
 # Отчет по выполнению работы
 
 ## Задание 1
-- ser17@WIN-GCHLLJVFKQQ:~/project-1$ git version  
-git version 2.43.0
+    ser17@WIN-GCHLLJVFKQQ:~/project-1$ git version  
+    git version 2.43.0
 
-- ser17@WIN-GCHLLJVFKQQ:~$ git config --list  
-user.email=vshalnuh@gmail.com  
-user.name=wikiped1ya
+    ser17@WIN-GCHLLJVFKQQ:~$ git config --list  
+    user.email=vshalnuh@gmail.com  
+    user.name=wikiped1ya
 
 - ser17@WIN-GCHLLJVFKQQ:~/project-1$ git --help  
 These are common Git commands used in various situations:  
