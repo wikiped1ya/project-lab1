@@ -1,14 +1,15 @@
 # Лабораторная работа 2.
 
-*Я удаляла символы "~" в фрагментах из командной строки, потому что иначе часть текста зачеркивались там, где это не нужно.*
-
 ## Задание 1
-- ser17@WIN-GCHLLJVFKQQ:~$ cp -r ~/lab1/* ~/project-1/labs/lab2/lab1-sd/  
+```
+ser17@WIN-GCHLLJVFKQQ:~$ cp -r ~/lab1/* ~/project-1/labs/lab2/lab1-sd/  
+```
 С помощью этой команды я скопировала лабораторную 1 по структурам данных в папку lab1-sd (которая в папке lab2).
 
 - Файл gitignore нужен, чтобы при создании, например, коммита, гит игнорировал определенные файлы. Эту и более подаробную информацию про gitignore я прочитала [тут](https://git-scm.com/docs/gitignore) и [тут](https://purpleschool.ru/knowledge-base/git/basics/gitignore?ysclid=mnest9p0jf492046379).
 
-- ser17@WIN-GCHLLJVFKQQ:/project-1$ git add labs/lab2/lab1-sd/  
+```
+ser17@WIN-GCHLLJVFKQQ:/project-1$ git add labs/lab2/lab1-sd/  
 ser17@WIN-GCHLLJVFKQQ:/project-1$ git add labs/lab2/report.md  
 ser17@WIN-GCHLLJVFKQQ:/project-1$ git status  
 On branch master  
@@ -37,6 +38,7 @@ Changes to be committed:
         new file:   labs/lab2/lab1-sd/tests/test_rect_properties.cpp  
         new file:   labs/lab2/report.md  
 ser17@WIN-GCHLLJVFKQQ:/project-1$ git commit -m "Коммит для лаб2. Задание 1."  
+```
 
 Я добавила файл .gitignore и сделала коммит. Во всех файлах, кроме build и a.out, сохранились изменения.
 
@@ -47,7 +49,8 @@ ser17@WIN-GCHLLJVFKQQ:/project-1$ git commit -m "Коммит для лаб2. З
 
 Изменения отправились, тк я забыла отключить обход правил для администратора. Так что я добавила еще галочку на "Do not allow bypassing the above settings". 
 
-- ser17@WIN-GCHLLJVFKQQ:/project-1$ git commit -m "Еще одна проверка работы защиты веток"  
+```
+ser17@WIN-GCHLLJVFKQQ:/project-1$ git commit -m "Еще одна проверка работы защиты веток"  
 [master e8ae942] Еще одна проверка работы защиты веток  
  1 file changed, 1 insertion(+), 1 deletion(-)  
 ser17@WIN-GCHLLJVFKQQ:/project-1$ git push  
@@ -64,12 +67,14 @@ remote: - Changes must be made through a pull request.
 To github.com:wikiped1ya/project-lab1.git  
  ! [remote rejected] master -> master (protected branch hook declined)  
 error: failed to push some refs to 'github.com:wikiped1ya/project-lab1.git'  
+```
 
 Теперь защита веток работает правильно и мне не удалось сделать git push. 
 
 *Запись для тестовой ветки*
 
 - Изменения сохранились и получилось сделать push из ветки pr-test.  
+```
 ser17@WIN-GCHLLJVFKQQ:/project-1$ git commit -m "Изменения в тестовой ветке"  
 [pr-test 5a193b9] Изменения в тестовой ветке  
  1 file changed, 27 insertions(+)  
@@ -87,9 +92,11 @@ remote:      https://github.com/wikiped1ya/project-lab1/pull/new/pr-test
 remote:  
 To github.com:wikiped1ya/project-lab1.git  
  * [new branch]      pr-test -> pr-test  
+```
 
 ## Задание 3
 - Через GitHub я сделала pull request, ветки получилось слить.  
+```
 ser17@WIN-GCHLLJVFKQQ:/project-1$ git pull  
 remote: Enumerating objects: 1, done.  
 remote: Counting objects: 100% (1/1), done.  
@@ -104,7 +111,7 @@ Fast-forward
 ser17@WIN-GCHLLJVFKQQ:/project-1$ git branch  
 * master  
   pr-test  
-
+```
 
 
 
