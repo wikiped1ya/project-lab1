@@ -7,6 +7,8 @@
 #include "notification.hpp"
 #include "notification_queue.hpp"
 #include "notification_priority_queue.hpp"
+#include "/home/ser17/lab2/basefile.hpp"
+#include "bool_array.hpp"
 
 MyString addTxtExtension(const MyString &path) { return path + ".txt"; }
 
@@ -242,9 +244,73 @@ int main() {
     //Задание 5
     {
 	//В классе BaseFile оператор присваивания запрещен, так как этот класс обладает открытым ресурсом. То есть он может открыть файл, но должен его и закрыть, а при копировании с этим могут возникнуть проблемы
+
+	BaseFile f1("move_test.txt", "w");
+	const char* text = "Hello World";
+	f1.write_raw(text, strlen(text));
+
+	BaseFile f2 = std::move(f1);
+	
+	BaseFile f3("move_test2.txt", "w");
+	
+	f3 = std::move(f2);
     }
 
+    //Задание 6
+    {
+	/// Создается массив из 10 значений false
+        BoolArray ar1(10);
 
+        /// Создается массив из 5 значений true
+        BoolArray ar2(5, true);
+
+        /// Создается независимая копия `ar2`
+        BoolArray ar3(ar2);
+
+        /// 4 и 6 элементу (нумерация с 0) устанавливаются заданное значение
+        ar1[4] = true;
+	ar1[6] = true;
+
+        /// Над полученными значениями выполняем логические операции
+        ar1[2] = (!ar1[6] && ar1[8] || (ar1[0] != true));
+
+        /// Выведем массив на печать
+        std::cout << "[";
+        for (int i = 0; i < ar1.size(); ++i) {
+            if (i > 0) std::cout << ", ";
+            std::cout << ar1[i];
+        }
+        std::cout << "]\n";
+
+        /// Выведем массив на печать по-другому
+        std::cout << "[";
+        for (int i = 0, printed = 0; i < ar1.size(); ++i) {
+            if (ar1[i]) {
+                if (printed++ > 0) std::cout << ", ";
+                std::cout << i;
+            }
+        }
+        std::cout << "]\n";
+
+        ar1.resize(12, true);
+        
+	std::cout << "После resize(12, true)" << std::endl;
+	std::cout << "[";
+    	for (int i = 0; i < ar1.size(); ++i) {
+            if (i > 0) std::cout << ", ";
+            std::cout << ar1[i];
+        }
+        std::cout << "]\n";
+
+        ar1.resize(4, true);
+        std::cout << "После resize(4, true)" << std::endl;
+        std::cout << "[";
+        for (int i = 0; i < ar1.size(); ++i) {
+            if (i > 0) std::cout << ", ";
+            std::cout << ar1[i];
+        }
+        std::cout << "]\n";
+    }
 
     return 0;
 }
