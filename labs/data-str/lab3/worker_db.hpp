@@ -3,6 +3,9 @@
 
 #include "worker.hpp"
 
+//Размер таблицы
+static const int TABLE_SIZE = 1009;
+
 //Структура для элемента базы данных
 struct WorkerNode {
     MyString last_name;
@@ -16,11 +19,27 @@ struct WorkerNode {
 class WorkerDbIt {
     private:
 	WorkerNode* current; //Текущий узел
+	WorkerNode** buckets; //Указатель на массив корзин
+	int bucketIndex; //Индекс текущей корзины
+	int tableSize; //Размер таблицы
+
+	//Поиск следующей непустой корзины
+	void findNext() {
+	    while (current == nullptr and bucketIndex < tableSize) {
+		current = buckets[bucketIndex];
+		bucketIndex++;
+	    }
+	}
 
     public:
 	//Конструктор
-	WorkerDbIt(WorkerNode* node = nullptr) : current(node) {}
-
+	WorkerDbIt(WorkerNode* node = nullptr, WorkerNode** b = nullptr, int size = 0, int idx = 0) : current(node), buckets(b), tableSize(size), bucketIndex(idx) {
+	    //Поиск первого непустого элемента в массиве корзин
+	    if (current == nullptr and buckets != nullptr) {
+		findNext();
+	    }
+	}
+	
 	//Оператор разыменования
 	WorkerData& operator*() {
 	    return current->data;
@@ -47,6 +66,10 @@ class WorkerDbIt {
 	WorkerDbIt& operator++() {
 	    if (current != nullptr) {
 		current = current->next;
+		//Если в этой корзине элементы закончились
+		if (current == nullptr) {
+		    findNext();
+		}
 	    }
 	    return *this;
 	}
@@ -65,11 +88,22 @@ class WorkerDbIt {
 
 class WorkerDb {
     private:
-	WorkerNode* head; //Первый элемент списка
+	WorkerNode* buckets[TABLE_SIZE]; //Массив указателей на начала списков
+	int count; //Кол-во элементов
 
-	//Поиск по фамилии
-	WorkerNode* findNode(const char* last_name) const {
-	    WorkerNode* current = head;
+	//Хэш функция
+	int hash(const char* lastName) const {
+	    unsigned long h = 0;
+	    for (int i = 0; lastName[i] != '\0'; i++) {
+		h = (h * 31 + lastName[i]) % TABLE_SIZE;
+	    }
+
+	    return h;
+	}
+
+	//Поиск по фамилии (в конкретной корзине)
+	WorkerNode* findInBucket(int index, const char* last_name) const {
+	    WorkerNode* current = buckets[index];
 	    while (current != nullptr) {
 		if (current->last_name == last_name) {
 		    return current;
@@ -91,11 +125,11 @@ class WorkerDb {
 
 	//Итераторы
 	WorkerDbIt begin() {
-	    return WorkerDbIt(head);
+	    return WorkerDbIt(nullptr, buckets, TABLE_SIZE, 0);
 	}
 
 	WorkerDbIt end() {
-	    return WorkerDbIt(nullptr);
+	    return WorkerDbIt(nullptr, nullptr, TABLE_SIZE, TABLE_SIZE);
 	}
 };
 

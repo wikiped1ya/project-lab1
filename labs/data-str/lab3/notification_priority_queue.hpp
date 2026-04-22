@@ -58,6 +58,7 @@ class NotificationPriorityQueue {
 	int cou;
 
 	//Поиск места для вставки по приоритету
+	// TODO: узнать как сделать лучше: < O(N) для вставки и удаления
 	PQueueNode* find_pos(Notification* notif) {
 	    if (head == nullptr) return nullptr;
 
