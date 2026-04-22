@@ -134,9 +134,13 @@ int main() {
     //Задание 3.1
     {
 	WorkerDb db;
+	// TODO: сделать лучше, чем O(N)
         db["Ivanov"] = WorkerData("Ivan", 34, 100.0);
         db["Petrov"] = WorkerData("Petr", 43, 250.0);
         db["Sidorov"] = WorkerData("Misha", 28, 180.0);
+	// TODO: изменится ли содержимое БД
+	//В базу данных добавится Test с пустыми данными, если такого работника не было
+	db["Test"];
 	std::cout << "Ivanov's name = " << db["Ivanov"].name << "\n";
         std::cout << "Petrov's age = " << db["Petrov"].age << "\n";
 	std::cout << "Sidorov's salary = " << db["Sidorov"].salary << "\n";
