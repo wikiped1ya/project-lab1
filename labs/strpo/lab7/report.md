@@ -267,12 +267,179 @@ ser17@localhost: Permission denied (publickey).
 ```
 
 ## Задание 3. Настройка сессии для другого пользователя.
+1. Я добавила нового пользователя и создала для него пароль
+```
+ser17@WIN-GCHLLJVFKQQ:/mnt/c/WINDOWS/system32$ sudo useradd -m -s /bin/bash Polina
+ser17@WIN-GCHLLJVFKQQ:/mnt/c/WINDOWS/system32$ sudo passwd Polina
+New password:
+Retype new password:
+passwd: password updated successfully
+ser17@WIN-GCHLLJVFKQQ:/mnt/c/WINDOWS/system32$ sudo ls -la /home/Polina
+total 20
+drwxr-x--- 2 Polina Polina 4096 Apr 30 12:08 .
+drwxr-xr-x 5 root   root   4096 Apr 30 12:08 ..
+-rw-r--r-- 1 Polina Polina  220 Mar 31  2024 .bash_logout
+-rw-r--r-- 1 Polina Polina 3771 Mar 31  2024 .bashrc
+-rw-r--r-- 1 Polina Polina  807 Mar 31  2024 .profile
+```
+
+2. Далее Полина прислала мне свой публичный ключ, который я добавила в папку .ssh
+```
+ser17@WIN-GCHLLJVFKQQ:/mnt/c/WINDOWS/system32$ sudo mkdir -p /home/Polina/.ssh
+ser17@WIN-GCHLLJVFKQQ:/mnt/c/WINDOWS/system32$ sudo nano /home/Polina/.ssh/authorized_keys
+```
+
+Так же я настроила права доступа
+```
+ser17@WIN-GCHLLJVFKQQ:/mnt/c/WINDOWS/system32$ sudo chmod 700 /home/Polina/.ssh 
+#Права на папку .ssh только у владельца
+ser17@WIN-GCHLLJVFKQQ:/mnt/c/WINDOWS/system32$ sudo chmod 600 /home/Polina/.ssh/authorized_keys
+#Права на файл authorized_keys: тоже только у владельца
+ser17@WIN-GCHLLJVFKQQ:/mnt/c/WINDOWS/system32$ sudo chown -R Polina:Polina /home/Polina/.ssh
+#Полина становится владельцем папки и файла
+```
+
+3. К вай фаю одному подключились
+
+4. 
+```
+PS C:\WINDOWS\system32> ping 10.26.152.29
+
+Обмен пакетами с 10.26.152.29 по с 32 байтами данных:
+Ответ от 10.26.152.29: число байт=32 время=107мс TTL=128
+Ответ от 10.26.152.29: число байт=32 время=163мс TTL=128
+Ответ от 10.26.152.29: число байт=32 время=7мс TTL=128
+Ответ от 10.26.152.29: число байт=32 время=8мс TTL=128
+
+Статистика Ping для 10.26.152.29:
+    Пакетов: отправлено = 4, получено = 4, потеряно = 0
+    (0% потерь)
+Приблизительное время приема-передачи в мс:
+    Минимальное = 7мсек, Максимальное = 163 мсек, Среднее = 71 мсек
+```
+
+Тоже самое сделала Полина, но там возникли некоторые трудности. Windows по умолчанию блокирует ICMP-запросы (ping). Чтобы она смогла меня найти, я ввела команду
+```
+New-NetFirewallRule -DisplayName "Allow ICMPv4-In" -Protocol ICMPv4 -IcmpType 8 -Direction Inbound -Action Allow
+```
+
+5. В прошлом пункте я открывала доступ. Закрыть его можно так:
+```
+Remove-NetFirewallRule -DisplayName "Allow ICMPv4-In"
+```
+
+6.
+```
+ser17@WIN-GCHLLJVFKQQ:/mnt/c/WINDOWS/system32$ ssh -p 2222 vika@10.26.152.29
+Welcome to KDE neon User Edition (GNU/Linux 6.17.0-22-generic x86_64)
+
+Expanded Security Maintenance for Applications is not enabled.
+
+1 update can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
 
 
+The programs included with the KDE neon system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
 
+KDE neon comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
 
+vika@polina-virtualbox:~$
+```
 
+## Задание 4. Развертывание программы.
+1. Находясь в virtualbox, я клонировала свой репозиторий через git clone 
+```
+vika@polina-virtualbox:~$ git clone https://github.com/wikiped1ya/project-lab1.git
+Cloning into 'project-lab1'...
+remote: Enumerating objects: 269, done.
+remote: Counting objects: 100% (269/269), done.
+remote: Compressing objects: 100% (173/173), done.
+remote: Total 269 (delta 65), reused 253 (delta 58), pack-reused 0 (from 0)
+Receiving objects: 100% (269/269), 396.42 KiB | 1.24 MiB/s, done.
+Resolving deltas: 100% (65/65), done.
+vika@polina-virtualbox:~$ cd project-lab1
+vika@polina-virtualbox:~/project-lab1$ ls -la
+total 24
+drwxrwxr-x 5 vika vika 4096 апр 30 13:20 .
+drwxr-x--- 6 vika vika 4096 апр 30 13:20 ..
+drwxrwxr-x 8 vika vika 4096 апр 30 13:20 .git
+drwxrwxr-x 4 vika vika 4096 апр 30 13:20 labs
+-rw-rw-r-- 1 vika vika  307 апр 30 13:20 README.md
+drwxrwxr-x 2 vika vika 4096 апр 30 13:20 reports
+vika@polina-virtualbox:~/project-lab1$ ls
+labs  README.md  reports
+```
 
+Затем перешла в папку с лабораторной 2 по СД. И запустила тесты через make test
+```
+vika@polina-virtualbox:~/project-lab1/labs/data-str/lab2$ make test
+./t_basefile
+Constructor Октрывается файл test_basefile.bin в режиме w
+Записано 50000 байт
+Destructor Файл закрыт
+Constructor Октрывается файл test_basefile.bin в режиме r
+Прочитано 50000 байт
+Destructor Файл закрыт
+Данные совпадают
+./t_base32file
+Constructor Октрывается файл test_base32file.bin в режиме w
+Записано 50000 байт
+Destructor Файл закрыт
+Constructor Октрывается файл test_base32file.bin в режиме r
+Прочитано 50000 байт
+Destructor Файл закрыт
+Данные совпадают
+./t_rlefile
+Constructor Октрывается файл test_rlefile.bin в режиме w
+Constructor RleFile с параметрами
+Записано 50000 байт
+Destructor RleFile
+Destructor Файл закрыт
+Constructor Октрывается файл test_rlefile.bin в режиме r
+Constructor RleFile с параметрами
+Прочитано 50000 байт
+Destructor RleFile
+Destructor Файл закрыт
+Данные совпадают
+./t_base32file2
+Constructor Октрывается файл test_base32file2.bin в режиме w
+Constructor Base32File2
+Записано 50000 байт
+Destructor Base32File2
+Destructor Файл закрыт
+Constructor Октрывается файл test_base32file2.bin в режиме r
+Constructor Base32File2
+Прочитано 50000 байт
+Destructor Base32File2
+Destructor Файл закрыт
+Данные совпадают
+./t_rlefile2
+Constructor Октрывается файл test_rlefile2.bin в режиме w
+Constructor RleFile2
+Записано 50000 байт
+Destructor RleFile2
+Destructor Файл закрыт
+Constructor Октрывается файл test_rlefile2.bin в режиме r
+Constructor RleFile2
+Прочитано 50000 байт
+Destructor RleFile2
+Destructor Файл закрыт
+Данные совпадают
+```
+
+После этого я вышла и удалила клонированный репозиторий
+```
+vika@polina-virtualbox:~/project-lab1/labs/data-str/lab2$ exit
+logout
+Connection to 10.26.152.29 closed.
+ser17@WIN-GCHLLJVFKQQ:/mnt/c/WINDOWS/system32$ rm -rf ~/project-lab1
+```
 
 
 
