@@ -1,6 +1,13 @@
 #include "list.hpp"
 #include <iostream>
 
+//Ф-ция для изменения радиуса
+void increase_radius(Circle& c) {
+    double new_radius = c.get_radius() * 1.5;
+    c.set_radius(new_radius);
+}
+
+
 int main() { 
     List l;
 
@@ -36,6 +43,8 @@ int main() {
     std::cout << "Список прочитан из файла 'circle.txt'" << std::endl;
     std::cout << l2;
     std::cout << std::endl;
+
+    l.for_each(increase_radius);
 
     return 0;
 }
