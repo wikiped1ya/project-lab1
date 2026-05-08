@@ -441,7 +441,29 @@ Connection to 10.26.152.29 closed.
 ser17@WIN-GCHLLJVFKQQ:/mnt/c/WINDOWS/system32$ rm -rf ~/project-lab1
 ```
 
-
+## Итог.
+Таким образом, вот кратко вся последовательность действий, которая у меня получилась:
+```
+wsl
+sudo service ssh status //Необязательно
+ls /home/ //Выводит пользователей
+sudo cat /home/Polina/.ssh/authorized_keys //Выводит ключ
+exit
+New-NetFirewallRule -DisplayName "SSH-2222-Allow" -Direction Inbound -Protocol TCP -LocalPort 2222 -Action Allow //Открывает порт
+netsh interface portproxy add v4tov4 listenport=2222 listenaddress=0.0.0.0 connectport=22 connectaddress=localhost //Настраивает проброс портов
+netsh interface portproxy show all //Проверка
+ssh -p 2222 ser17@localhost //Тоже проверка
+ipconfig //Сетевые настройки компьютера
+ping 10.132.239.29 //Обмен пакет
+wsl
+ssh -p 2222 vika@10.132.239.29 //Подключение к ВМ
+whoami
+git clone https://github.com/wikiped1ya/project-lab1.git //Клонирование репозитория
+cd project-lab1
+exit
+Remove-NetFirewallRule -DisplayName "SSH-2222-Allow"
+Get-NetFirewallRule -DisplayName "SSH-2222-Allow" //Удаление правил
+```
 
 
 
