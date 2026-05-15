@@ -38,6 +38,8 @@ Zorin OS, будучи основанным на Ubuntu, использует т
 ![Скриншот 1](screens/i3.webp)
 ![Скриншот 1](screens/i4.webp)
 ![Скриншот 1](screens/i5.webp)
+
+Создание виртуальной машины:
 ![Скриншот 1](screens/i6.webp)
 ![Скриншот 1](screens/i7.webp)
 ![Скриншот 1](screens/i8.webp)
@@ -46,6 +48,8 @@ Zorin OS, будучи основанным на Ubuntu, использует т
 ![Скриншот 1](screens/i11.webp)
 ![Скриншот 1](screens/i12.webp)
 ![Скриншот 1](screens/i13.webp)
+
+Сама виртуальная машина и вход в систему:
 ![Скриншот 1](screens/i14.webp)
 ![Скриншот 1](screens/i15.webp)
 ![Скриншот 1](screens/i16.webp)
