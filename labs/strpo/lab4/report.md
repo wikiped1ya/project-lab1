@@ -34,20 +34,21 @@ Zorin OS, будучи основанным на Ubuntu, использует т
 Последовательность установки Virtual Box:
 ![Скриншот 1](screens/i0.webp)
 ![Скриншот 1](screens/i1.webp)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+![Скриншот 1](screens/i2.webp)
+![Скриншот 1](screens/i3.webp)
+![Скриншот 1](screens/i4.webp)
+![Скриншот 1](screens/i5.webp)
+![Скриншот 1](screens/i6.webp)
+![Скриншот 1](screens/i7.webp)
+![Скриншот 1](screens/i8.webp)
+![Скриншот 1](screens/i9.webp)
+![Скриншот 1](screens/i10.webp)
+![Скриншот 1](screens/i11.webp)
+![Скриншот 1](screens/i12.webp)
+![Скриншот 1](screens/i13.webp)
+![Скриншот 1](screens/i14.webp)
+![Скриншот 1](screens/i15.webp)
+![Скриншот 1](screens/i16.webp)
 
 
 
