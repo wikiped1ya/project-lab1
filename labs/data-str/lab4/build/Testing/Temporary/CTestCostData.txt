@@ -1,2 +1,2 @@
-SimpleTest 1 0.00336919
+SimpleTest 3 0.000531347
 ---

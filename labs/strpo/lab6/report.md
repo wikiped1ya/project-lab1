@@ -353,8 +353,57 @@ Total Test time (real) =   0.01 sec
 ```
 
 ## Задание 4.
+### 1.
+Я создала и запушила новую ветку
+```
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git checkout -b dev
+Switched to a new branch 'dev'
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git push origin dev
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
+remote:
+remote: Create a pull request for 'dev' on GitHub by visiting:
+remote:      https://github.com/wikiped1ya/project-lab1/pull/new/dev
+remote:
+To github.com:wikiped1ya/project-lab1.git
+ * [new branch]      dev -> dev
+```
 
+### 2.
+Далее добавила новый хук
+```
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/strpo/lab6$ cd ~/project-1/.git/hooks
+ser17@WIN-GCHLLJVFKQQ:~/project-1/.git/hooks$ vim pre-commit
+ser17@WIN-GCHLLJVFKQQ:~/project-1/.git/hooks$ chmod +x pre-commit
+```
 
+### 3.
+Проверка хука
+```
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git checkout dev
+M       labs/data-str/last_lab/tictactoe-course
+M       labs/strpo/lab6/report.md
+Already on 'dev'
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ echo "// test comment" >> ~/project-1/labs/data-str/lab4/apps/main.cpp
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git add labs/data-str/lab4/apps/main.cpp
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git commit -m "Тестовый коммит в ветку dev"
+Запуск pre-commit хука...
+Ветка dev: запускаем CMake тесты...
+⚙️ Конфигурация CMake...
+Сборка проекта...
+Запуск тестов (CTest)...
+Test project /home/ser17/project-1/labs/data-str/lab4/build
+    Start 1: SimpleTest
+1/1 Test #1: SimpleTest .......................   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.00 sec
+Все тесты прошли успешно! Коммит разрешён.
+Проверка сообщения коммита
+commit-msg хук успешно завершён. Сообщение соответствует правилам.
+[dev 9ad620d] Тестовый коммит в ветку dev
+ 1 file changed, 1 insertion(+)
+```
 
 
 
