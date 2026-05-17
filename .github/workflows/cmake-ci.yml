@@ -1,0 +1,80 @@
+name: CMake CI/CD Pipeline
+
+# Триггеры: запуск при пуше в dev или main, а также при pull request в main
+on:
+  push:
+    branches: [dev, main]
+  pull_request:
+    branches: [main]
+
+# Переменные окружения
+env:
+  BUILD_TYPE: Release
+  PROJECT_PATH: labs/data-str/lab4
+
+# Задачи
+jobs:
+  # Задача 1: Сборка и тестирование
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. Клонирование репозитория
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      # 2. Установка компилятора и CMake (уже есть на ubuntu-latest)
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake build-essential
+      
+      # 3. Конфигурация CMake
+      - name: Configure CMake
+        run: |
+          mkdir -p ${{ env.PROJECT_PATH }}/build
+          cd ${{ env.PROJECT_PATH }}/build
+          cmake .. -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
+      
+      # 4. Сборка проекта
+      - name: Build project
+        run: |
+          cd ${{ env.PROJECT_PATH }}/build
+          cmake --build . --config ${{ env.BUILD_TYPE }}
+      
+      # 5. Запуск тестов
+      - name: Run tests
+        run: |
+          cd ${{ env.PROJECT_PATH }}/build
+          ctest --output-on-failure -C ${{ env.BUILD_TYPE }}
+      
+      # 6. Загрузка артефактов сборки (опционально)
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: lab4-executable
+          path: ${{ env.PROJECT_PATH }}/build/apps/lab4
+          retention-days: 7
+
+  # Задача 2: Проверка на разных ОС (опционально)
+  cross-platform-test:
+    name: Test on multiple OS
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Configure CMake
+        run: |
+          mkdir -p ${{ env.PROJECT_PATH }}/build
+          cd ${{ env.PROJECT_PATH }}/build
+          cmake ..
+      
+      - name: Build
+        run: |
+          cd ${{ env.PROJECT_PATH }}/build
+          cmake --build .
