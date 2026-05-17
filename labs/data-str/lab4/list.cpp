@@ -171,29 +171,73 @@ Node* merge_sort(Node* head) {
 void List::sort_by_area() {
     if (m_size < 2) return;
 
-    Node* first = Head.pNext;
-    if (first == &Tail) return;
+    //Отсортирован ли список
+    bool is_sorted = true;
+    Node* check = Head.pNext;
+    while (check->pNext != &Tail) {
+	if (check->m_Data.get_area() > check->pNext->m_Data.get_area()) {
+	    is_sorted = false;
+	    break;
+	}
+	check = check->pNext;
+    }
 
-    Node* last = Tail.pPrev;
-    last->pNext = nullptr;
+    if (is_sorted) {
+	return;
+    }
 
-    Node* sorted_head = merge_sort(first);
+    //Поиск блоков
+    Node* runs[1000];
+    int run_cou = 0;
 
-    Head.pNext = sorted_head;
-    if (sorted_head != nullptr) {
-	sorted_head->pPrev = &Head;
+    Node* current = Head.pNext;
+    while(current != &Tail and run_cou < 1000) {
+	runs[run_cou] = current;
+	current = extract_next(current);
+	run_cou++;
+    }
 
-	Node* current = sorted_head;
-	while (current->pNext != nullptr) {
-	    current = current->pNext;
+    //Если блок один
+    if (run_cou == 1) {
+	Node* last = runs[0];
+	while (last->pNext != nullptr) {
+	    last = last->pNext;
+	}
+	last->pNext = &Tail;
+	Tail.pPrev = last;
+	return;
+    }
+
+    //Сортировка блоков слиянием
+    while (run_cou > 1) {
+	int new_cou = 0;
+
+	for (int i = 0; i < run_cou; i +=2) {
+	    if (i + 1 < run_cou) {
+		runs[new_cou] = merge_list(runs[i], runs[i+1]);
+	    } else {
+		runs[new_cou] = runs[i];
+	    }
+
+	    new_cou++;
 	}
 
-	current->pNext = &Tail;
-	Tail.pPrev = current;
-    } else {
-	Head.pNext = &Tail;
-	Tail.pPrev = &Head;
+	run_cou = new_cou;
     }
+
+    //Подключение отсортированного блока с head и tail
+    Node* sorted_head = runs[0];
+
+    Node* last = sorted_head;
+    while (last->pNext != nullptr) {
+	last = last->pNext;
+    }
+
+    Head.pNext = sorted_head;
+    sorted_head->pPrev = &Head;
+
+    last->pNext = &Tail;
+    Tail.pPrev = last;
 }
 
 void List::print(std::ostream& os) const {
@@ -335,7 +379,7 @@ List& List::operator=(List&& other) {
 }
 
 //Применяет ф-цию к каждому элементу
-void List::for_each(void (*func)(Circle&)) {
+void List::for_each(std::function<void(Circle&)> func) {
     Node* current = Head.pNext;
     while (current != &Tail) {
 	func(current->m_Data);
@@ -343,9 +387,43 @@ void List::for_each(void (*func)(Circle&)) {
     }
 }
 
+//Длина возрастабщего блока
+int List::get_run_len(Node* start) const {
+    if (start == nullptr or start == &Tail) return 0;
 
+    int len = 1;
+    Node* current = start;
 
+    while (current->pNext != &Tail and current->m_Data.get_area() <= current->pNext->m_Data.get_area()) {
+	len++;
+	current = current->pNext;
+    }
 
+    return len;
+}
+
+//Отделяет первый блок от списка и возвращает указатель на следующий блок
+Node* List::extract_next(Node*& current) {
+    if (current == nullptr or current == &Tail) return nullptr;
+
+    Node* run_start = current;
+    Node* run_end = current;
+
+    while (run_end->pNext != &Tail and run_end->m_Data.get_area() <= run_end->pNext->m_Data.get_area()) {
+	run_end = run_end->pNext;
+    }
+
+    Node* next_run = run_end->pNext;
+
+    run_end->pNext = nullptr;
+    if (next_run != nullptr) {
+	next_run->pPrev = nullptr;
+    }
+
+    current = next_run;
+
+    return run_start;
+}
 
 
 

@@ -42,8 +42,16 @@ bool WorkerDb::contains(const char* last_name) const {
     return findInBucket(index, last_name) != nullptr;
 }
 
+WorkerData* WorkerDb::find(const char* last_name) {
+    int index = hash(last_name);
+    WorkerNode* node = findInBucket(index, last_name);
 
-
+    if (node != nullptr) {
+	return &node->data;
+    }
+    
+    return nullptr;
+}
 
 
 
