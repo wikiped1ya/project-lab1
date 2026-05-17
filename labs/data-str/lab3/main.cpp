@@ -140,7 +140,14 @@ int main() {
         db["Sidorov"] = WorkerData("Misha", 28, 180.0);
 	// TODO: изменится ли содержимое БД
 	//В базу данных добавится Test с пустыми данными, если такого работника не было
-	db["Test"];
+	// TODO: сделать метод, который позволит только получать работника, но
+	// не добавлять в случае отсутствия
+	// auto my_test_worker = db["Test"];
+
+	WorkerData* test = db.find("Test");
+
+	// std::cout << db["Test"];   db["Test"] = ...;
+
 	std::cout << "Ivanov's name = " << db["Ivanov"].name << "\n";
         std::cout << "Petrov's age = " << db["Petrov"].age << "\n";
 	std::cout << "Sidorov's salary = " << db["Sidorov"].salary << "\n";

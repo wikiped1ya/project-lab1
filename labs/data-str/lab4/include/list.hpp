@@ -4,6 +4,7 @@
 #include "circle.hpp"
 #include <iostream>
 #include <fstream>
+#include <functional>
 
 class Node {
     private:
@@ -35,6 +36,10 @@ class List {
 
 	//Поиск узла с заданным кругом
 	Node* find_node(const Circle& data) const;
+
+	//Для сортировки
+	int get_run_len(Node* start) const; //Находит длину возрастающего блока
+	Node* extract_next(Node*& current); //Отделяет первый блок и возвращает указатель на следующий блок
 
     public:
 	//Конструктор
@@ -96,11 +101,13 @@ class List {
 	void write(std::ostream& os) const;
 
 	//Применяет функцию к каждому элементу
-	void for_each(void (*func)(Circle&));
+	void for_each(std::function<void(Circle&)> func);
 };
 
 // TODO: будет ли ваш метод работать с таким объектом или с lambda функцией
 // TODO: если нет, то использовать std::function
+//Метод принимает только указатель на обычную ф-цию, так что он не будет работать с лямбда-функциями и функциональными объектами
+
 struct Functional {
 	void operator()(Circle& c);
 };

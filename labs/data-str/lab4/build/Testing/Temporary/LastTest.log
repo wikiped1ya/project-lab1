@@ -1,0 +1,19 @@
+Start testing: May 17 18:12 MSK
+----------------------------------------------------------
+1/1 Testing: SimpleTest
+1/1 Test: SimpleTest
+Command: "/home/ser17/project-1/labs/data-str/lab4/build/tests/test_simple"
+Directory: /home/ser17/project-1/labs/data-str/lab4/build/tests
+"SimpleTest" start time: May 17 18:12 MSK
+Output:
+----------------------------------------------------------
+Тест пройден успешно!
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"SimpleTest" end time: May 17 18:12 MSK
+"SimpleTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: May 17 18:12 MSK
