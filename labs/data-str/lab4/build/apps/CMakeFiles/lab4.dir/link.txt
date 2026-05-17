@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/lab4.dir/main.cpp.o -o lab4  ../src/liblist_lib.a 
