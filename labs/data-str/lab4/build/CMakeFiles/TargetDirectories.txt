@@ -1,0 +1,15 @@
+/home/ser17/project-1/labs/data-str/lab4/build/CMakeFiles/test.dir
+/home/ser17/project-1/labs/data-str/lab4/build/CMakeFiles/edit_cache.dir
+/home/ser17/project-1/labs/data-str/lab4/build/CMakeFiles/rebuild_cache.dir
+/home/ser17/project-1/labs/data-str/lab4/build/src/CMakeFiles/list_lib.dir
+/home/ser17/project-1/labs/data-str/lab4/build/src/CMakeFiles/test.dir
+/home/ser17/project-1/labs/data-str/lab4/build/src/CMakeFiles/edit_cache.dir
+/home/ser17/project-1/labs/data-str/lab4/build/src/CMakeFiles/rebuild_cache.dir
+/home/ser17/project-1/labs/data-str/lab4/build/apps/CMakeFiles/lab4.dir
+/home/ser17/project-1/labs/data-str/lab4/build/apps/CMakeFiles/test.dir
+/home/ser17/project-1/labs/data-str/lab4/build/apps/CMakeFiles/edit_cache.dir
+/home/ser17/project-1/labs/data-str/lab4/build/apps/CMakeFiles/rebuild_cache.dir
+/home/ser17/project-1/labs/data-str/lab4/build/tests/CMakeFiles/test_simple.dir
+/home/ser17/project-1/labs/data-str/lab4/build/tests/CMakeFiles/test.dir
+/home/ser17/project-1/labs/data-str/lab4/build/tests/CMakeFiles/edit_cache.dir
+/home/ser17/project-1/labs/data-str/lab4/build/tests/CMakeFiles/rebuild_cache.dir

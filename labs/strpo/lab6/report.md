@@ -210,6 +210,151 @@ ser17@WIN-GCHLLJVFKQQ:~/server-copy.git/hooks$ chmod +x post-receive
 ```
 
 ### 4.
+Я добавила хук и запушила изменения. HTML-файл успешно создался.
+```
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git add labs/strpo/lab6/report.md
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git commit --no-verify -m "Изменения для запуска хука"
+[prog-lab1 5fcb3fc] Изменения для запуска хука
+ 8 files changed, 130 insertions(+), 20 deletions(-)
+ create mode 160000 labs/data-str/last_lab/tictactoe-course
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git push server-copy prog-lab1
+Enumerating objects: 30, done.
+Counting objects: 100% (30/30), done.
+Delta compression using up to 18 threads
+Compressing objects: 100% (14/14), done.
+Writing objects: 100% (16/16), 10.54 KiB | 2.11 MiB/s, done.
+Total 16 (delta 10), reused 0 (delta 0), pack-reused 0
+remote: начинаю сборку HTML
+remote: Cloning into '/tmp/tmp.wH9eUcmA4N'...
+remote: warning: --depth is ignored in local clones; use file:// instead.
+remote: done.
+remote: Готово! HTML-отчёт создан: /home/ser17/server-deploy/lab6.html
+To /home/ser17/server-copy.git
+   4c60461..5fcb3fc  prog-lab1 -> prog-lab1
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ ls -la ~/server-deploy/
+total 20
+drwxr-xr-x  2 ser17 ser17  4096 May 17 17:08 .
+drwxr-x--- 14 ser17 ser17  4096 May 17 17:08 ..
+-rw-r--r--  1 ser17 ser17 10312 May 17 17:08 lab6.html
+```
+
+## Задание 3. Сборка с помощью CMake
+### 1.
+У меня CMake уже устновлен
+```
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/strpo/lab6$ cmake --version
+cmake version 3.28.3
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+```
+
+### 2.
+CMake — это не сама система сборки, а её генератор. 
+Ключевые понятия:
+* Проект - логическая единица, верхний уровень набора исходников.
+* Цель - основная единица сборки.
+* Связывание - показывает, какие библиотеки нужны для сборки цели.
+* Каталоги включений - указывает компилятору, где искать заголовочные файлы, связанные с целью.
+* Тестирование - включает поддержку тестов и добавляет конкретный тест в проект.
+
+### 3.
+```
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4$ mkdir -p src include apps tests
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4$ mv *.hpp include/
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4$ mv list.cpp src/
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4$ mv main.cpp apps/
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4$ ls
+apps  circle.txt  include  lab4  src  tests
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4$ vim CMakeLists.txt
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4$ cd src
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4/src$ vim CMakeLists.txt
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4/src$ cd ../apps
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4/apps$ vim CMakeLists.txt
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4/apps$ cd ~/project-1/labs/data-str/lab4
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4$ mkdir build
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4$ cd build
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4/build$ cmake ..
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (1.8s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/ser17/project-1/labs/data-str/lab4/build
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4/build$ cmake --build .
+[ 25%] Building CXX object src/CMakeFiles/list_lib.dir/list.cpp.o
+[ 50%] Linking CXX static library liblist_lib.a
+[ 50%] Built target list_lib
+[ 75%] Building CXX object apps/CMakeFiles/lab4.dir/main.cpp.o
+[100%] Linking CXX executable lab4
+[100%] Built target lab4
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4/build$ ./apps/lab4
+Исходный список:
+0: -1, 0, 6
+1: 1, 2, 4
+2: 0, 0, 5
+3: 0, 0, 3
+
+Segmentation fault (core dumped)
+```
+
+### 4.
+Я добавила простой тест и пересобрала проект. Затем запустила тесты через CTest.
+```
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4$ mkdir -p tests
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4$ vim tests/test_simple.cpp
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4$ vim tests/CMakeLists.txt
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4$ vim CMakeLists.txt
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4$ rm -rf build
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4$ mkdir build
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4$ cd build
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4/build$ cmake ..
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (1.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/ser17/project-1/labs/data-str/lab4/build
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4/build$ cmake --build .
+[ 16%] Building CXX object src/CMakeFiles/list_lib.dir/list.cpp.o
+[ 33%] Linking CXX static library liblist_lib.a
+[ 33%] Built target list_lib
+[ 50%] Building CXX object apps/CMakeFiles/lab4.dir/main.cpp.o
+[ 66%] Linking CXX executable lab4
+[ 66%] Built target lab4
+[ 83%] Building CXX object tests/CMakeFiles/test_simple.dir/test_simple.cpp.o
+[100%] Linking CXX executable test_simple
+[100%] Built target test_simple
+ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/data-str/lab4/build$ ctest
+Test project /home/ser17/project-1/labs/data-str/lab4/build
+    Start 1: SimpleTest
+1/1 Test #1: SimpleTest .......................   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.01 sec
+```
+
+## Задание 4.
+
+
 
 
 
