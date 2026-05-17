@@ -88,7 +88,7 @@ Usage: grep [OPTION]... PATTERNS [FILE]...
 Try 'grep --help' for more information.
 Ошибка: В файле 'secret.txt' найдено запрещённое содержимое!
    Соответствует паттерну: password\s*=\s*.+
-✏️  Исправьте файл и повторите коммит.
+   Исправьте файл и повторите коммит.
 ser17@WIN-GCHLLJVFKQQ:~/project-1$ echo "# Это безопасный файл" > safe.txt
 ser17@WIN-GCHLLJVFKQQ:~/project-1$ git add safe.txt
 ser17@WIN-GCHLLJVFKQQ:~/project-1$ git commit -m "добавлен безопасный файл"
@@ -99,7 +99,7 @@ Usage: grep [OPTION]... PATTERNS [FILE]...
 Try 'grep --help' for more information.
 Ошибка: В файле 'secret.txt' найдено запрещённое содержимое!
    Соответствует паттерну: password\s*=\s*.+
-✏️  Исправьте файл и повторите коммит.
+   Исправьте файл и повторите коммит.
 ```
 
 Оба хука сработали как надо, предотвратив возможные ошибки.
@@ -352,7 +352,7 @@ Test project /home/ser17/project-1/labs/data-str/lab4/build
 Total Test time (real) =   0.01 sec
 ```
 
-## Задание 4.
+## Задание 4. Автоматизация задач CMake в git
 ### 1.
 Я создала и запушила новую ветку
 ```
@@ -388,7 +388,7 @@ ser17@WIN-GCHLLJVFKQQ:~/project-1$ git add labs/data-str/lab4/apps/main.cpp
 ser17@WIN-GCHLLJVFKQQ:~/project-1$ git commit -m "Тестовый коммит в ветку dev"
 Запуск pre-commit хука...
 Ветка dev: запускаем CMake тесты...
-⚙️ Конфигурация CMake...
+   Конфигурация CMake...
 Сборка проекта...
 Запуск тестов (CTest)...
 Test project /home/ser17/project-1/labs/data-str/lab4/build
@@ -405,11 +405,91 @@ commit-msg хук успешно завершён. Сообщение соотв
  1 file changed, 1 insertion(+)
 ```
 
+### 4.
+Добавила новый хук
+```
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git commit -m "Тест post-commit хука"
+Запуск pre-commit хука...
+Ветка dev: запускаем CMake тесты...
+   Конфигурация CMake...
+Сборка проекта...
+Запуск тестов (CTest)...
+Test project /home/ser17/project-1/labs/data-str/lab4/build
+   Start 1: SimpleTest
+1/1 Test #1: SimpleTest .......................   Passed    0.00 sec
 
+100% tests passed, 0 tests failed out of 1
 
+Total Test time (real) =   0.00 sec
+Все тесты прошли успешно! Коммит разрешён.
+Проверка сообщения коммита
+commit-msg хук успешно завершён. Сообщение соответствует правилам.
+После коммита в dev: сборка библиотеки...
+Библиотека успешно собрана: src/liblist_lib.a
+[dev c67d935] Тест post-commit хука
+ 1 file changed, 1 insertion(+)
+```
 
+## Задание 5. Автоматизация с помощью Github Actions
+### 1.
+YAML - это язык для написания конфигурационных файлов, который используется в GitHub Actions.
 
+Основные конструкции:
+* Ключ-значение (ключ: значение)
+* Список (- элемент)
+* Словарь (ключ: {подключ: значение})
+* Многострочная строка (| (сохраняет переносы) или > (складывает в одну строку))
+* Комментарии (# текст)
+* Переменные/выражения (${{ выражение }})
 
+### 2.
+GitHub Actions — это встроенный инструмент для автоматизации CI/CD прямо в репозитории .
+
+Основные компоненты GitHub Actions:
+* Workflow
+* Event
+* Job
+* Step
+* Runner
+* Action
+
+Тарифы GitHub Actions:
+* GitHub Free - 2,000 минут/месяц   
+* GitHub Pro - 3,000 минут/месяц
+* GitHub Team - 3,000 минут/месяц
+* GitHub Enterprise - 50,000 минут/месяц
+
+### 3.
+Я создала файл cmake-ci.yml, затем все закоммитила и запушила. В репозитории на GitHub во вкладке Actions workflow отображается запущенным.
+
+```
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ mkdir -p .github/workflows
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ vim .github/workflows/cmake-ci.yml
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ ls -la .github/workflows/
+total 12
+drwxr-xr-x 2 ser17 ser17 4096 May 17 18:45 .
+drwxr-xr-x 3 ser17 ser17 4096 May 17 18:45 ..
+-rw-r--r-- 1 ser17 ser17 2363 May 17 18:45 cmake-ci.yml
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git add .github/
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git commit -m "Добавлен CI/CD пайплайн для CMake проекта"
+Запуск pre-commit хука...
+Текущая ветка: prog-lab1 (не dev). Проверки пропущены.
+Проверка сообщения коммита
+commit-msg хук успешно завершён. Сообщение соответствует правилам.
+[prog-lab1 9846c1e] Добавлен CI/CD пайплайн для CMake проекта
+ 1 file changed, 80 insertions(+)
+ create mode 100644 .github/workflows/cmake-ci.yml
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git push origin dev
+Enumerating objects: 13, done.
+Counting objects: 100% (13/13), done.
+Delta compression using up to 18 threads
+Compressing objects: 100% (7/7), done.
+Writing objects: 100% (7/7), 663 bytes | 221.00 KiB/s, done.
+Total 7 (delta 3), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (3/3), completed with 3 local objects.
+To github.com:wikiped1ya/project-lab1.git
+   136b09c..c67d935  dev -> dev
+``` 
 
 
 
