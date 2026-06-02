@@ -3,9 +3,9 @@ name: CMake CI/CD Pipeline
 # Триггеры: запуск при пуше в dev или main, а также при pull request в main
 on:
   push:
-    branches: [dev, main]
+    branches: [dev, master]
   pull_request:
-    branches: [main]
+    branches: [master]
 
 # Переменные окружения
 env:
