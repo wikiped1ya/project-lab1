@@ -6,6 +6,7 @@ Git хуки — это скрипты, которые автоматическ�
 * Commit (можно прервать)
 * Push (можно прервать)
 * Checkout (нельзя прервать)
+
 Серверные:
 * pre-receive
 * update
@@ -37,6 +38,35 @@ drwxr-xr-x 8 ser17 ser17 4096 May 16 12:56 ..
 -rwxr-xr-x 1 ser17 ser17 3650 Mar 24 23:10 update.sample
 ser17@WIN-GCHLLJVFKQQ:~/project-1/.git/hooks$ vim pre-commit
 ser17@WIN-GCHLLJVFKQQ:~/project-1/.git/hooks$ chmod +x pre-commit
+```
+
+Содержимое фала:
+```
+#!/bin/bash
+echo "Проверка на запрещённые слова"
+
+FORBIDDEN=(
+    "-----BEGIN.*PRIVATE KEY-----"
+    "AKIA[0-9A-Z]{16}"
+    "ghp_[A-Za-z0-9]{36}"
+    "password\s*=\s*.+"
+    "SECRET\s*=\s*.+"
+    "token\s*=\s*.+"
+)
+
+for file in $(git diff --cached --name-only); do
+    if [ ! -f "$file" ]; then continue; fi
+    for pattern in "${FORBIDDEN[@]}"; do
+        if grep -Eiq -- "$pattern" "$file"; then
+            echo "Ошибка: В файле '$file' найдено запрещённое содержимое!"
+            echo "   Соответствует паттерну: $pattern"
+            exit 1
+        fi
+    done
+done
+
+echo "pre-commit хук успешно завершён."
+exit 0
 ```
 
 ### 3.
@@ -376,6 +406,47 @@ ser17@WIN-GCHLLJVFKQQ:~/project-1/.git/hooks$ vim pre-commit
 ser17@WIN-GCHLLJVFKQQ:~/project-1/.git/hooks$ chmod +x pre-commit
 ```
 
+Содержимое файла:
+```
+#!/bin/bash
+
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+if [ "$BRANCH" != "dev" ]; then
+    echo "Текущая ветка: $BRANCH (не dev). Проверки пропущены."
+    exit 0
+fi
+
+echo "Ветка dev: запускаем CMake тесты..."
+
+PROJECT_DIR="$HOME/project-1/labs/data-str/lab4"
+BUILD_DIR="$PROJECT_DIR/build"
+
+mkdir -p "$BUILD_DIR"
+cd "$BUILD_DIR" || exit 1
+
+cmake .. > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+    echo "Ошибка: CMake конфигурация не удалась!"
+    exit 1
+fi
+
+cmake --build . > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+    echo "Ошибка: сборка проекта не удалась!"
+    exit 1
+fi
+
+ctest --output-on-failure
+if [ $? -ne 0 ]; then
+    echo "Ошибка: некоторые тесты не прошли!"
+    exit 1
+fi
+
+echo "Все тесты прошли успешно! Коммит разрешён."
+exit 0
+```
+
 ### 3.
 Проверка хука
 ```
@@ -491,11 +562,9 @@ To github.com:wikiped1ya/project-lab1.git
    136b09c..c67d935  dev -> dev
 ``` 
 
+Результат работы пайплайна: после упрощения workflow до базовых шагов (checkout, установка зависимостей, проверка наличия файлов) пайплайн успешно выполняется.
 
-
-
-
-
+![Скриншот](i.webp)
 
 
 
