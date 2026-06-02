@@ -208,6 +208,29 @@ void List::sort_by_area() {
 	return;
     }
 
+    //Сортировка последнего блока
+    if (run_cou == 1000) {
+	Node* start = runs[999];
+	bool swapped;
+	do {
+	    swapped = false;
+	    Node* cur = start;
+	    while (cur->pNext != nullptr and cur->pNext != &Tail) {
+		if (cur->m_Data.get_area() > cur->pNext->m_Data.get_area()) {
+		    Circle temp = cur->m_Data;
+		    cur->m_Data = cur->pNext->m_Data;
+		    cur->pNext->m_Data = temp;
+		    swapped = true;
+		}
+		cur = cur->pNext;
+	    }
+	} while (swapped);
+    }
+
+    // if (run_cou == 1000) {
+    // 	  sort last block
+    // }
+
     //Сортировка блоков слиянием
     while (run_cou > 1) {
 	int new_cou = 0;

@@ -6,6 +6,7 @@ Git хуки — это скрипты, которые автоматическ�
 * Commit (можно прервать)
 * Push (можно прервать)
 * Checkout (нельзя прервать)
+
 Серверные:
 * pre-receive
 * update
@@ -37,6 +38,35 @@ drwxr-xr-x 8 ser17 ser17 4096 May 16 12:56 ..
 -rwxr-xr-x 1 ser17 ser17 3650 Mar 24 23:10 update.sample
 ser17@WIN-GCHLLJVFKQQ:~/project-1/.git/hooks$ vim pre-commit
 ser17@WIN-GCHLLJVFKQQ:~/project-1/.git/hooks$ chmod +x pre-commit
+```
+
+Содержимое фала:
+```
+#!/bin/bash
+echo "Проверка на запрещённые слова"
+
+FORBIDDEN=(
+    "-----BEGIN.*PRIVATE KEY-----"
+    "AKIA[0-9A-Z]{16}"
+    "ghp_[A-Za-z0-9]{36}"
+    "password\s*=\s*.+"
+    "SECRET\s*=\s*.+"
+    "token\s*=\s*.+"
+)
+
+for file in $(git diff --cached --name-only); do
+    if [ ! -f "$file" ]; then continue; fi
+    for pattern in "${FORBIDDEN[@]}"; do
+        if grep -Eiq -- "$pattern" "$file"; then
+            echo "Ошибка: В файле '$file' найдено запрещённое содержимое!"
+            echo "   Соответствует паттерну: $pattern"
+            exit 1
+        fi
+    done
+done
+
+echo "pre-commit хук успешно завершён."
+exit 0
 ```
 
 ### 3.
@@ -88,7 +118,7 @@ Usage: grep [OPTION]... PATTERNS [FILE]...
 Try 'grep --help' for more information.
 Ошибка: В файле 'secret.txt' найдено запрещённое содержимое!
    Соответствует паттерну: password\s*=\s*.+
-✏️  Исправьте файл и повторите коммит.
+   Исправьте файл и повторите коммит.
 ser17@WIN-GCHLLJVFKQQ:~/project-1$ echo "# Это безопасный файл" > safe.txt
 ser17@WIN-GCHLLJVFKQQ:~/project-1$ git add safe.txt
 ser17@WIN-GCHLLJVFKQQ:~/project-1$ git commit -m "добавлен безопасный файл"
@@ -99,7 +129,7 @@ Usage: grep [OPTION]... PATTERNS [FILE]...
 Try 'grep --help' for more information.
 Ошибка: В файле 'secret.txt' найдено запрещённое содержимое!
    Соответствует паттерну: password\s*=\s*.+
-✏️  Исправьте файл и повторите коммит.
+   Исправьте файл и повторите коммит.
 ```
 
 Оба хука сработали как надо, предотвратив возможные ошибки.
@@ -153,7 +183,7 @@ sudo apt update
 sudo apt install pandoc -y
 ```
 
-### 3. 
+### 3.
 Я установила pandoc
 ```
 ser17@WIN-GCHLLJVFKQQ:~/project-1/labs/strpo/lab6$ pandoc --version
@@ -249,7 +279,7 @@ CMake suite maintained and supported by Kitware (kitware.com/cmake).
 ```
 
 ### 2.
-CMake — это не сама система сборки, а её генератор. 
+CMake — это не сама система сборки, а её генератор.
 Ключевые понятия:
 * Проект - логическая единица, верхний уровень набора исходников.
 * Цель - основная единица сборки.
@@ -352,7 +382,7 @@ Test project /home/ser17/project-1/labs/data-str/lab4/build
 Total Test time (real) =   0.01 sec
 ```
 
-## Задание 4.
+## Задание 4. Автоматизация задач CMake в git
 ### 1.
 Я создала и запушила новую ветку
 ```
@@ -376,6 +406,47 @@ ser17@WIN-GCHLLJVFKQQ:~/project-1/.git/hooks$ vim pre-commit
 ser17@WIN-GCHLLJVFKQQ:~/project-1/.git/hooks$ chmod +x pre-commit
 ```
 
+Содержимое файла:
+```
+#!/bin/bash
+
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+if [ "$BRANCH" != "dev" ]; then
+    echo "Текущая ветка: $BRANCH (не dev). Проверки пропущены."
+    exit 0
+fi
+
+echo "Ветка dev: запускаем CMake тесты..."
+
+PROJECT_DIR="$HOME/project-1/labs/data-str/lab4"
+BUILD_DIR="$PROJECT_DIR/build"
+
+mkdir -p "$BUILD_DIR"
+cd "$BUILD_DIR" || exit 1
+
+cmake .. > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+    echo "Ошибка: CMake конфигурация не удалась!"
+    exit 1
+fi
+
+cmake --build . > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+    echo "Ошибка: сборка проекта не удалась!"
+    exit 1
+fi
+
+ctest --output-on-failure
+if [ $? -ne 0 ]; then
+    echo "Ошибка: некоторые тесты не прошли!"
+    exit 1
+fi
+
+echo "Все тесты прошли успешно! Коммит разрешён."
+exit 0
+```
+
 ### 3.
 Проверка хука
 ```
@@ -388,7 +459,7 @@ ser17@WIN-GCHLLJVFKQQ:~/project-1$ git add labs/data-str/lab4/apps/main.cpp
 ser17@WIN-GCHLLJVFKQQ:~/project-1$ git commit -m "Тестовый коммит в ветку dev"
 Запуск pre-commit хука...
 Ветка dev: запускаем CMake тесты...
-⚙️ Конфигурация CMake...
+   Конфигурация CMake...
 Сборка проекта...
 Запуск тестов (CTest)...
 Test project /home/ser17/project-1/labs/data-str/lab4/build
@@ -405,21 +476,91 @@ commit-msg хук успешно завершён. Сообщение соотв
  1 file changed, 1 insertion(+)
 ```
 
+### 4.
+Добавила новый хук
+```
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git commit -m "Тест post-commit хука"
+Запуск pre-commit хука...
+Ветка dev: запускаем CMake тесты...
+   Конфигурация CMake...
+Сборка проекта...
+Запуск тестов (CTest)...
+Test project /home/ser17/project-1/labs/data-str/lab4/build
+   Start 1: SimpleTest
+1/1 Test #1: SimpleTest .......................   Passed    0.00 sec
 
+100% tests passed, 0 tests failed out of 1
 
+Total Test time (real) =   0.00 sec
+Все тесты прошли успешно! Коммит разрешён.
+Проверка сообщения коммита
+commit-msg хук успешно завершён. Сообщение соответствует правилам.
+После коммита в dev: сборка библиотеки...
+Библиотека успешно собрана: src/liblist_lib.a
+[dev c67d935] Тест post-commit хука
+ 1 file changed, 1 insertion(+)
+```
 
+## Задание 5. Автоматизация с помощью Github Actions
+### 1.
+YAML - это язык для написания конфигурационных файлов, который используется в GitHub Actions.
 
+Основные конструкции:
+* Ключ-значение (ключ: значение)
+* Список (- элемент)
+* Словарь (ключ: {подключ: значение})
+* Многострочная строка (| (сохраняет переносы) или > (складывает в одну строку))
+* Комментарии (# текст)
+* Переменные/выражения (${{ выражение }})
 
+### 2.
+GitHub Actions — это встроенный инструмент для автоматизации CI/CD прямо в репозитории .
 
+Основные компоненты GitHub Actions:
+* Workflow
+* Event
+* Job
+* Step
+* Runner
+* Action
 
+Тарифы GitHub Actions:
+* GitHub Free - 2,000 минут/месяц
+* GitHub Pro - 3,000 минут/месяц
+* GitHub Team - 3,000 минут/месяц
+* GitHub Enterprise - 50,000 минут/месяц
 
+### 3.
+Я создала файл cmake-ci.yml, затем все закоммитила и запушила. В репозитории на GitHub во вкладке Actions workflow отображается запущенным.
 
-
-
-
-
-
-
+```
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ mkdir -p .github/workflows
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ vim .github/workflows/cmake-ci.yml
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ ls -la .github/workflows/
+total 12
+drwxr-xr-x 2 ser17 ser17 4096 May 17 18:45 .
+drwxr-xr-x 3 ser17 ser17 4096 May 17 18:45 ..
+-rw-r--r-- 1 ser17 ser17 2363 May 17 18:45 cmake-ci.yml
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git add .github/
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git commit -m "Добавлен CI/CD пайплайн для CMake проекта"
+Запуск pre-commit хука...
+Текущая ветка: prog-lab1 (не dev). Проверки пропущены.
+Проверка сообщения коммита
+commit-msg хук успешно завершён. Сообщение соответствует правилам.
+[prog-lab1 9846c1e] Добавлен CI/CD пайплайн для CMake проекта
+ 1 file changed, 80 insertions(+)
+ create mode 100644 .github/workflows/cmake-ci.yml
+ser17@WIN-GCHLLJVFKQQ:~/project-1$ git push origin dev
+Enumerating objects: 13, done.
+Counting objects: 100% (13/13), done.
+Delta compression using up to 18 threads
+Compressing objects: 100% (7/7), done.
+Writing objects: 100% (7/7), 663 bytes | 221.00 KiB/s, done.
+Total 7 (delta 3), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (3/3), completed with 3 local objects.
+To github.com:wikiped1ya/project-lab1.git
+   136b09c..c67d935  dev -> dev
+```
 
 
 
