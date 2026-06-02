@@ -4,9 +4,6 @@ on:
   push:
     branches: [dev]
 
-env:
-  PROJECT_PATH: labs/data-str/lab4
-
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -14,27 +11,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install dependencies
+      - name: Debug - list files
         run: |
-          sudo apt-get update
-          sudo apt-get install -y cmake build-essential
-
-      - name: Configure CMake
-        run: |
-          mkdir -p ${{ env.PROJECT_PATH }}/build
-          cd ${{ env.PROJECT_PATH }}/build
-          cmake ..
-
-      - name: Build project
-        run: |
-          cd ${{ env.PROJECT_PATH }}/build
-          cmake --build .
-
-      - name: Run tests
-        run: |
-          cd ${{ env.PROJECT_PATH }}/build
-          ctest --output-on-failure
-
+          pwd
+          ls -la
+          ls -la labs/data-str/ || echo "Папка labs/data-str не найдена"
 
 
 
