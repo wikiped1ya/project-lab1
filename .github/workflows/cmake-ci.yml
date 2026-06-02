@@ -3,18 +3,13 @@ name: CMake CI/CD Pipeline
 on:
   push:
     branches: [dev]
-  pull_request:
-    branches: [dev]
 
 env:
-  BUILD_TYPE: Release
   PROJECT_PATH: labs/data-str/lab4
 
 jobs:
   build-and-test:
-    name: Build and Test
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -28,26 +23,21 @@ jobs:
         run: |
           mkdir -p ${{ env.PROJECT_PATH }}/build
           cd ${{ env.PROJECT_PATH }}/build
-          cmake .. -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
+          cmake ..
 
       - name: Build project
         run: |
           cd ${{ env.PROJECT_PATH }}/build
-          cmake --build . --config ${{ env.BUILD_TYPE }}
+          cmake --build .
 
       - name: Run tests
         run: |
           cd ${{ env.PROJECT_PATH }}/build
-          ctest --output-on-failure -C ${{ env.BUILD_TYPE }}
+          ctest --output-on-failure
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: lab4-executable
-          path: ${{ env.PROJECT_PATH }}/build/apps/lab4
-          retention-days: 7
 
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
+
+
+
+
+
