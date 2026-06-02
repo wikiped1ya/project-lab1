@@ -1,10 +1,10 @@
-Start testing: Jun 03 01:39 MSK
+Start testing: Jun 03 01:41 MSK
 ----------------------------------------------------------
 1/1 Testing: SimpleTest
 1/1 Test: SimpleTest
 Command: "/home/ser17/project-1/labs/data-str/lab4/build/tests/test_simple"
 Directory: /home/ser17/project-1/labs/data-str/lab4/build/tests
-"SimpleTest" start time: Jun 03 01:39 MSK
+"SimpleTest" start time: Jun 03 01:41 MSK
 Output:
 ----------------------------------------------------------
 Тест пройден успешно!
@@ -12,8 +12,8 @@ Output:
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"SimpleTest" end time: Jun 03 01:39 MSK
+"SimpleTest" end time: Jun 03 01:41 MSK
 "SimpleTest" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Jun 03 01:39 MSK
+End testing: Jun 03 01:41 MSK
