@@ -4,6 +4,9 @@ on:
   push:
     branches: [dev]
 
+env:
+  PROJECT_PATH: labs/data-str/lab4
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -16,13 +19,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y cmake build-essential
 
-      - name: Debug - list files
+      - name: Configure CMake
         run: |
-          pwd
-          ls -la
-          ls -la labs/data-str/ || echo "Папка labs/data-str не найдена"
-
-
+          mkdir -p ${{ env.PROJECT_PATH }}/build
+          cd ${{ env.PROJECT_PATH }}/build
+          cmake ..
 
 
 
